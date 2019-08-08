@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<ruleset name="WordPress Coding Standards for Plugins">
+    <description>A custom set of code standard rules</description>
+
+    <rule ref="WordPress-Core">
+        <exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
+        <exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+        <exclude name="Squiz.Commenting.FileComment.MissingPackageTag"/>
+        <!-- Needed as a temp fix for Atom. https://github.com/AtomLinter/linter-phpcs/issues/306 -->
+        <exclude name="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound"/>
+    </rule>
+    <rule ref="WordPress-Docs"/>
+    <rule ref="WordPress-Extra"/>
+
+    <!-- Verify that the text_domain is set to the desired text-domain.
+     Multiple valid text domains can be provided as a comma-delimited list. -->
+    <rule ref="WordPress.WP.I18n">
+        <properties>
+            <property name="text_domain" type="array" value="post-header-image" />
+        </properties>
+    </rule>
+
+    <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+        <properties>
+            <property name="prefixes" type="array" value="post_header_image"/>
+        </properties>
+    </rule>
+
+    <rule ref="WordPress.NamingConventions.ValidHookName">
+        <properties>
+            <property name="additionalWordDelimiters" value="-/."/>
+        </properties>
+    </rule>
+
+    <!-- Include sniffs for PHP cross-version compatibility. -->
+    <config name="testVersion" value="7.0-99.0"/>
+    <rule ref="PHPCompatibility"/>
+
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+</ruleset>

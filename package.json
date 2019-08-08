@@ -1,0 +1,72 @@
+{
+  "name": "post-header-image",
+  "description": "WordPress plugin for adding a custom header image to posts.",
+  "license": "GPL-2.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wearerequired/post-header-image.git"
+  },
+  "homepage": "https://github.com/wearerequired/post-header-image#readme",
+  "bugs": {
+    "url": "https://github.com/wearerequired/post-header-image/issues"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.1.6",
+    "@wordpress/api-fetch": "^2.2.5",
+    "@wordpress/babel-preset-default": "^3.0.2",
+    "@wordpress/components": "^7.0.2",
+    "@wordpress/compose": "^3.5.0",
+    "@wordpress/data": "^4.7.0",
+    "@wordpress/editor": "^9.5.0",
+    "@wordpress/i18n": "^3.6.0",
+    "@wordpress/plugins": "^2.5.0",
+    "@wordpress/scripts": "^3.4.0",
+    "autoprefixer": "^9.3.1",
+    "babel-loader": "^8.0.5",
+    "cross-env": "^5.2.0",
+    "css-loader": "^2.1.0",
+    "cssnano": "^4.1.7",
+    "mini-css-extract-plugin": "^0.5.0",
+    "postcss-loader": "^3.0",
+    "postcss-nested": "^4.1.1",
+    "raw-loader": "^1.0.0",
+    "webpack": "^4.39.1",
+    "webpack-cli": "^3.2.1"
+  },
+  "dependencies": {
+    "@wordpress/babel-plugin-import-jsx-pragma": "^1.1.3",
+    "accessible-autocomplete": "^1.6.2",
+    "classnames": "^2.2.6",
+    "css-mqpacker": "^7.0.0",
+    "postcss-hexrgba": "^1.0.2",
+    "postcss-import": "^12.0.1",
+    "postcss-mixins": "^6.2.2",
+    "postcss-preset-env": "^6.7.0",
+    "save-dev": "^2.0.0"
+  },
+  "babel": {
+    "presets": [
+      "@wordpress/default"
+    ],
+    "plugins": [
+      [
+        "@wordpress/babel-plugin-import-jsx-pragma",
+        {
+          "scopeVariable": "createElement",
+          "source": "@wordpress/element",
+          "isDefault": false
+        }
+      ]
+    ]
+  },
+  "scripts": {
+    "build": "BABEL_ENV=production wp-scripts build",
+    "dev": "WP_DEVTOOL=eval BABEL_ENV=development wp-scripts start",
+    "lint:js:src": "wp-scripts lint-js ./assets/js/src"
+  }
+}

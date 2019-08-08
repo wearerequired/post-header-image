@@ -1,0 +1,20 @@
+{
+  "name": "wearerequired/post-header-image",
+  "type": "wordpress-plugin",
+  "description": "WordPress plugin for adding a custom header image to posts.",
+  "license": "GPL-2.0-or-later",
+  "require": {
+    "php": ">=7.0"
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "autoload": {
+    "files": [
+      "inc/namespace.php",
+      "inc/helper-functions.php"
+    ]
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}

@@ -1,0 +1,8 @@
+/vendor/
+/composer.lock
+
+/node_modules/
+yarn.lock
+package-lock.json
+
+languages/schilling-blocks.pot
