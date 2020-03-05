@@ -122,21 +122,32 @@ export default compose(
 	withSelect( ( select ) => {
 		const { getMedia } = select( 'core' );
 		const { getEditedPostAttribute } = select( 'core/editor' );
-		const headerImageId = getEditedPostAttribute( 'meta' )[ META_BACKGROUND_IMAGE_NAME ];
+		const meta = getEditedPostAttribute( 'meta' ) || [];
+		const headerImageId = meta[ META_BACKGROUND_IMAGE_NAME ] || null;
 
 		return {
 			media: headerImageId ? getMedia( headerImageId ) : null,
 			headerImageId,
 		};
 	} ),
-	withDispatch( ( dispatch ) => {
+	withDispatch( ( dispatch, { meta } ) => {
 		const { editPost } = dispatch( 'core/editor' );
 		return {
 			onUpdateImage( image ) {
-				editPost( { meta: { [ META_BACKGROUND_IMAGE_NAME ]: image.id } } );
+				editPost( {
+					meta: {
+						...meta,
+						[ META_BACKGROUND_IMAGE_NAME ]: image.id
+					}
+				} );
 			},
 			onRemoveImage() {
-				editPost( { meta: { [ META_BACKGROUND_IMAGE_NAME ]: 0 } } );
+				editPost( {
+					meta: {
+						...meta,
+						[ META_BACKGROUND_IMAGE_NAME ]: 0
+					}
+				} );
 			},
 		};
 	} ),

@@ -36,14 +36,22 @@ function register_post_meta() {
  * Registers JavaScript and CSS for the block editor.
  */
 function register_editor_assets() {
-	$script_dependencies_path = plugin_dir_path( PLUGIN_FILE ) . 'assets/js/blocks.deps.json';
-	$script_dependencies      = file_exists( $script_dependencies_path ) ? json_decode( file_get_contents( $script_dependencies_path ) ) : [];
+	$script_asset      = [];
+	$script_asset_path = plugin_dir_path( PLUGIN_FILE ) . 'assets/js/editor.asset.php';
+	if ( file_exists( $script_asset_path ) ) {
+		$script_asset = require $script_asset_path;
+	} else {
+		$script_asset = [
+			'dependencies' => [],
+			'version'      => filemtime( plugin_dir_path( PLUGIN_FILE ) . 'assets/js/editor.js' ),
+		];
+	}
 
 	wp_register_script(
 		'post-header-image',
 		plugins_url( 'assets/js/editor.js', PLUGIN_FILE ),
-		$script_dependencies,
-		filemtime( plugin_dir_path( PLUGIN_FILE ) . 'assets/js/editor.js' ),
+		$script_asset['dependencies'],
+		$script_asset['version'],
 		true
 	);
 
