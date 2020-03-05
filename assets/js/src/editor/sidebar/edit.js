@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { has } from 'lodash';
+import { has, includes } from 'lodash';
 
 /**
  * WordPress dependencies
@@ -26,7 +26,7 @@ import {
 	withDispatch,
 } from '@wordpress/data';
 import { Fragment } from '@wordpress/element';
-import { compose } from '@wordpress/compose';
+import { compose, ifCondition } from '@wordpress/compose';
 import { applyFilters } from '@wordpress/hooks';
 
 /**
@@ -119,6 +119,16 @@ function Edit( { media, headerImageId, onUpdateImage, onRemoveImage } ) {
 }
 
 export default compose(
+	// Render only for posts.
+	withSelect( ( select ) => {
+		return {
+			isPostTypePost: includes(
+				['post', 'page'],
+				select( 'core/editor' ).getEditedPostAttribute( 'type' )
+			),
+		};
+	} ),
+	ifCondition( ( { isPostTypePost } ) => isPostTypePost ),
 	withSelect( ( select ) => {
 		const { getMedia } = select( 'core' );
 		const { getEditedPostAttribute } = select( 'core/editor' );
