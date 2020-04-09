@@ -130,7 +130,7 @@ export default compose(
 	ifCondition( ( { postType } ) => {
 		let isSupported = false;
 		if ( postType ) {
-			isSupported = postType.supports[ 'post-header-image' ];
+			isSupported = !! postType.supports[ 'post-header-image' ];
 		}
 		return isSupported;
 	} ),
