@@ -12,6 +12,7 @@ const POST_META_NAME = 'post_header_image';
 function bootstrap() {
 	add_action( 'init', __NAMESPACE__ . '\register_editor_assets' );
 	add_action( 'init', __NAMESPACE__ . '\register_post_meta' );
+	add_action( 'init', __NAMESPACE__ . '\add_post_type_support' );
 	add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\enqueue_block_editor_assets' );
 }
 
@@ -30,6 +31,13 @@ function register_post_meta() {
 			'type'         => 'integer',
 		]
 	);
+}
+
+/**
+ * Ensures that the internal post type `post` supports `post-header-image`.
+ */
+function add_post_type_support() {
+	\add_post_type_support( 'post', 'post-header-image' );
 }
 
 /**

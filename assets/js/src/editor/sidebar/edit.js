@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { has, includes } from 'lodash';
+import { has } from 'lodash';
 
 /**
  * WordPress dependencies
@@ -119,16 +119,21 @@ function Edit( { media, headerImageId, onUpdateImage, onRemoveImage } ) {
 }
 
 export default compose(
-	// Render only for posts.
+	// Render only for supported post types.
 	withSelect( ( select ) => {
+		const { getEditedPostAttribute } = select( 'core/editor' );
+		const { getPostType } = select( 'core' );
 		return {
-			isPostTypePost: includes(
-				['post', 'page'],
-				select( 'core/editor' ).getEditedPostAttribute( 'type' )
-			),
+			postType: getPostType( getEditedPostAttribute( 'type' ) ),
 		};
 	} ),
-	ifCondition( ( { isPostTypePost } ) => isPostTypePost ),
+	ifCondition( ( { postType } ) => {
+		let isSupported = false;
+		if ( postType ) {
+			isSupported = !! postType.supports[ 'post-header-image' ];
+		}
+		return isSupported;
+	} ),
 	withSelect( ( select ) => {
 		const { getMedia } = select( 'core' );
 		const { getEditedPostAttribute } = select( 'core/editor' );
