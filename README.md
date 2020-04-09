@@ -10,7 +10,9 @@
 
 WordPress plugin for adding a custom header image to posts. Only supports the block editor. There is no support for the classic editor.
 
-To enable post-type support: `add_post_type_support( 'page', 'post-header-image' );`
+By default, custom header images is only enabled for posts. To add support to other post types use the the 'add_post_type_support()` function. Example for pages:
+
+	add_post_type_support( 'page', 'post-header-image' );
 
 ## Block Editor
 

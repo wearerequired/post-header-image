@@ -34,7 +34,7 @@ function register_post_meta() {
 }
 
 /**
- * Ensures the Post internal post-type supports `post-header-image`.
+ * Ensures that the internal post type `post` supports `post-header-image`.
  */
 function add_post_type_support() {
 	\add_post_type_support( 'post', 'post-header-image' );
